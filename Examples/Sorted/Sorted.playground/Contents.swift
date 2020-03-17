@@ -23,7 +23,7 @@ extension Array where Element : Comparable {
 }
 extension Array where Element : Comparable {
     /// 选择排序
-    /// 首先在未排序列中找到最小(大)的元素，存放在排序序列的起始位置; 然后再充剩余未排序的元素中找到最小(大)数，然后放到已排序列表的末尾y, 已此类推
+    /// 首先在未排序列中找到最小(大)的元素，存放在排序序列的起始位置; 然后再从剩余未排序的元素中找到最小(大)数，然后放到已排序列表的末尾y, 已此类推
     public mutating func selectionSort(){
         let count = self.count
         guard count > 1 else { return }
