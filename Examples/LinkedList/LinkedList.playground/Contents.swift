@@ -2,16 +2,16 @@
 
 // 链表可以分为 单向链表，双向链表，循环链表，块状链表以及其他
 
-public class LinkedListNode<T> {
+public class ListNode<T> {
     var value: T
-    var next: LinkedListNode?
-    weak var previous: LinkedListNode?
+    var next: ListNode?
+    weak var previous: ListNode?
     public init(value: T) {
         self.value = value
     }
 }
 public class LinkedList<T> {
-    public typealias Node = LinkedListNode<T>
+    public typealias Node = ListNode<T>
     
     private var head: Node?
     
@@ -111,7 +111,7 @@ public class LinkedList<T> {
         let node = self.node(atIndex: index)
         return node.value
     }
-    /// 反转
+    /// 链表反转
     public func reverse() {
         var node = head
         tail = node
@@ -120,6 +120,33 @@ public class LinkedList<T> {
             swap(&currentNode.next, &currentNode.previous)
             head = currentNode
         }
+    }
+    
+    /// 链表中倒数第K的节点
+    /// - Parameter k: k 最后一个默认为第一个
+    public func FindKthToTail(k: Int) -> ListNode<T>? {
+        ///判断链表表头是否为空
+        guard let temp = self.head else { return nil }
+        guard k > 0 else { return nil }
+        /// 双指针法
+        var fast = temp // 快指针
+        var slow = temp // 慢指针
+        /// 快指针先走K步
+        var position: Int = k
+        while position > 1 {
+            if let _next = fast.next {
+                fast = _next
+                position -= 1
+            }else{
+                return nil
+            }
+        }
+        /// 两个指针一起走，知道快指针到达链表的尾j节点
+        while fast.next != nil {
+            fast = fast.next!
+            slow = slow.next!
+        }
+        return slow
     }
 }
 extension LinkedList : CustomStringConvertible {
@@ -140,5 +167,9 @@ let list = LinkedList<String>()
 list.append(value: "Hello")
 list.append(value: "World")
 list.append(value: "Swift")
-list.reverse()
+list.append(value: "2020")
+//list.reverse()
 print(list.description)
+
+let node = list.FindKthToTail(k: 2)
+node?.value

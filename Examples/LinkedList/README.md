@@ -123,6 +123,32 @@ public class LinkedList<T> {
             head = currentNode
         }
     }
+    /// 链表中倒数第K的节点
+    /// - Parameter k: k 最后一个默认为第一个
+    public func FindKthToTail(k: Int) -> ListNode<T>? {
+        ///判断链表表头是否为空
+        guard let temp = self.head else { return nil }
+        guard k > 0 else { return nil }
+        /// 双指针法
+        var fast = temp // 快指针
+        var slow = temp // 慢指针
+        /// 快指针先走K步
+        var position: Int = k
+        while position > 1 {
+            if let _next = fast.next {
+                fast = _next
+                position -= 1
+            }else{
+                return nil
+            }
+        }
+        /// 两个指针一起走，知道快指针到达链表的尾j节点
+        while fast.next != nil {
+            fast = fast.next!
+            slow = slow.next!
+        }
+        return slow
+    }
 }
 extension LinkedList : CustomStringConvertible {
     public var description: String {
@@ -142,6 +168,46 @@ let list = LinkedList<String>()
 list.append(value: "Hello")
 list.append(value: "World")
 list.append(value: "Swift")
-list.reverse()
 print(list.description)
 ```
+以上为链表的常用操作。下面是常见的算法
+```swift
+/// 链表反转
+public func reverse() {
+    var node = head
+    tail = node
+    while let currentNode = node {
+        node = currentNode.next
+        swap(&currentNode.next, &currentNode.previous)
+        head = currentNode
+    }
+}
+```
+```swift 
+/// 链表中倒数第K的节点
+/// - Parameter k: k 最后一个默认为第一个
+public func FindKthToTail(k: Int) -> ListNode<T>? {
+    ///判断链表表头是否为空
+    guard let temp = self.head else { return nil }
+    guard k > 0 else { return nil }
+    /// 双指针法
+    var fast = temp // 快指针
+    var slow = temp // 慢指针
+    /// 快指针先走K步
+    var position: Int = k
+    while position > 1 {
+        if let _next = fast.next {
+            fast = _next
+            position -= 1
+        }else{
+            return nil
+        }
+    }
+    /// 两个指针一起走，知道快指针到达链表的尾j节点
+    while fast.next != nil {
+        fast = fast.next!
+        slow = slow.next!
+    }
+    return slow
+}
+ ```
