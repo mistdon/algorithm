@@ -75,8 +75,28 @@ class Solution {
         }
         return false
     }
+    /// 连续子数组的最大和
+    func maxSumOfSubArray(array: [Int]) -> Int? {
+        guard array.count > 0 else { return nil }
+        var maxSum : Int = 0
+        var tempSum = 0
+        for index in 0..<array.count {
+            if tempSum <= 0 {
+                tempSum = array[index]
+            } else {
+                tempSum += array[index]
+            }
+            if tempSum > maxSum {
+                maxSum = tempSum
+            }
+        }
+        return maxSum
+    }
 }
 let source = [4, 3, 1, 0, 2, 3, 2]
 let result  = source.findDuplicateNum1(source)
 let result2 = findDuplicateNum12(source)
 let result3 = Solution().containsDuplicate(source)
+
+let source2 = [1, -2, 3, 10, -4, 7, 2, -5]
+let result4 = Solution().maxSumOfSubArray(array: source2)

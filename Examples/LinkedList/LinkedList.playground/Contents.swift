@@ -2,20 +2,23 @@
 
 // 链表可以分为 单向链表，双向链表，循环链表，块状链表以及其他
 
-public class ListNode<T> {
+public class ListNode<T>: Equatable {
     var value: T
     var next: ListNode?
     weak var previous: ListNode?
     public init(value: T) {
         self.value = value
     }
+    static public func == (lhs: ListNode, rhs: ListNode) -> Bool {
+        return lhs.value == rhs.value
+    }
 }
 public class LinkedList<T> {
     public typealias Node = ListNode<T>
     
-    private var head: Node?
+    public var head: Node?
     
-    private var tail: Node?
+    public var tail: Node?
     
     public var isEmpty: Bool {
         return head == nil
@@ -121,7 +124,6 @@ public class LinkedList<T> {
             head = currentNode
         }
     }
-    
     /// 链表中倒数第K的节点
     /// - Parameter k: k 最后一个默认为第一个
     public func FindKthToTail(k: Int) -> ListNode<T>? {
@@ -161,6 +163,14 @@ extension LinkedList : CustomStringConvertible {
             }
         }
         return s + "]"
+    }
+}
+class Solution {
+    func removeNode(node: ListNode<Any>, list: LinkedList<Any>){
+        var head = list.head
+        while head?.next != node {
+            head = head?.next
+        }
     }
 }
 let list = LinkedList<String>()
