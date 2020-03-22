@@ -1,29 +1,23 @@
 import UIKit
 
 // 单向链表
-// 4 -> 3 -> 2 -> 1
-
-public class ListNode: CustomStringConvertible {
-    public var value : Int
+public class ListNode {
+    public var val : Int
     public var next: ListNode?
-    public init(value: Int, next: ListNode? = nil){
-        self.value = value
+    public init(_ val: Int, next: ListNode? = nil){
+        self.val = val
         self.next = next
-    }
-    public var description: String {
-        return String(self.value)
     }
 }
 class Solution {
     func deleteNode(_ head: ListNode?, _ val: Int) -> ListNode? {
         var head = head
-        while head != nil && head?.value == val {
+        while head != nil && head?.val == val {
             head = head?.next
         }
         var prev = head
         while prev?.next != nil {
-            print(prev?.value)
-            if prev?.next?.value == val {
+            if prev?.next?.val == val {
                 prev?.next = prev?.next?.next
             } else {
                 prev = prev?.next
@@ -50,18 +44,50 @@ class Solution {
         }
         return slowNode
     }
+    /// 从未到头打印链表
+    func printListNodeFromTail(_ head: ListNode?) {
+       guard let _head = head else{
+           return
+       }
+       if _head.next != nil {
+           printListNodeFromTail(_head.next)
+       }
+       print(_head.val)
+    }
+    /// 正向打印一个链表
+    func printListNode(_ head: ListNode?){
+       guard let _head = head else { return }
+       print(_head.val)
+       if _head.next != nil {
+           printListNode(_head.next)
+       }
+    }
+    /// 反转链表，输出表头(递归)
+    func reverseList(_ head: ListNode?) -> ListNode? {
+       if head == nil || head?.next == nil {
+           return head
+       }
+       let next = reverseList(head!.next)
+       head!.next?.next = head
+       head!.next = nil
+       return next
+    }
 }
-let node1 = ListNode(value: 1)
-let node2 = ListNode(value: 2, next: node1)
-let node3 = ListNode(value: 3, next: node2)
-let node4 = ListNode(value: 4, next: node3)
+let sol = Solution()
+// 1 -> 2 -> 3 -> 4 -> 5
+let node5 = ListNode(5)
+let node4 = ListNode(4, next: node5)
+let node3 = ListNode(3, next: node4)
+let node2 = ListNode(2, next: node3)
+let node1 = ListNode(1, next: node2)
 
-//let res = Solution().deleteNode(node3, 2)
-//print(node3.next?.value)
 /// 测试
-let KthTailNode0 = Solution().FindKthToTail(head: node4, k: 0)
-let KthTailNode1 = Solution().FindKthToTail(head: node4, k: 2)
-let KthTailNode2 = Solution().FindKthToTail(head: node4, k: 10)
+let KthTailNode0 = Solution().FindKthToTail(head: node1, k: 0)
+let KthTailNode1 = Solution().FindKthToTail(head: node1, k: 2)
+let KthTailNode2 = Solution().FindKthToTail(head: node1, k: 10)
+
+// 打印链表
+sol.printListNode(sol.reverseList(node1))
 
 
 

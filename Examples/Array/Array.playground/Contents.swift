@@ -92,11 +92,46 @@ class Solution {
         }
         return maxSum
     }
+    /// 数组中第K个最大元素
+    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        guard nums.count > 0 else {
+            return -1
+        }
+        var temp = nums
+        var res = nums[0]
+        for i in 0..<temp.count {
+            for j in 0..<temp.count - 1 - i {
+                if temp[j] < temp[j+1] {
+                    (temp[j], temp[j+1]) = (temp[j+1], temp[j])
+                }
+            }
+        }
+        var postion = k
+        print("temp = \(temp)")
+        for index in temp{
+            if postion > 1{
+                if index > res {
+                    postion -= 1
+                }else{
+                    res = index
+                }
+            } else{
+                return index
+            }
+        }
+        return res
+    }
 }
 let source = [4, 3, 1, 0, 2, 3, 2]
+let sol = Solution()
+
+
 let result  = source.findDuplicateNum1(source)
 let result2 = findDuplicateNum12(source)
-let result3 = Solution().containsDuplicate(source)
+let result3 = sol.containsDuplicate(source)
 
 let source2 = [1, -2, 3, 10, -4, 7, 2, -5]
-let result4 = Solution().maxSumOfSubArray(array: source2)
+let result4 = sol.maxSumOfSubArray(array: source2)
+
+sol.findKthLargest(source, 2)
+
