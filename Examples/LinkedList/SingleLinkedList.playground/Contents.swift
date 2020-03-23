@@ -72,6 +72,18 @@ class Solution {
        head!.next = nil
        return next
     }
+    /// 链表的中间节点
+    /// 典型的快慢指针法，快指针的速度是慢指针的两倍，当快追针到达链表的尾点时，慢指针到达中间节点
+    func middleNoe(_ head: ListNode?) -> ListNode? {
+        if head == nil { return nil}
+        var fast = head
+        var slow = head
+        while fast != nil && fast?.next != nil {
+            fast = fast?.next?.next
+            slow = slow?.next
+        }
+        return slow
+    }
 }
 let sol = Solution()
 // 1 -> 2 -> 3 -> 4 -> 5

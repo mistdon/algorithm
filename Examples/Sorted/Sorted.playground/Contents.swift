@@ -2,12 +2,15 @@
 
 import UIKit
 
+/// 8大排序算法
+
 var arr = [Int](repeating: 0, count: 10)
 for index in 0..<10{
     arr[index] = Int(arc4random_uniform(10)) + 1
 }
 extension Array where Element : Comparable {
     /// 冒泡排序
+    /// 冒泡排序是最稳定的排序算法，最容易实现的排序。最坏的情况是每次都需要交换，时间复杂度是O(n^2), 空间复杂度是O(1)
     public mutating func bubbleSort() {
         let count = self.count
         guard count > 1 else { return }
@@ -23,7 +26,7 @@ extension Array where Element : Comparable {
 }
 extension Array where Element : Comparable {
     /// 选择排序
-    /// 首先在未排序列中找到最小(大)的元素，存放在排序序列的起始位置; 然后再从剩余未排序的元素中找到最小(大)数，然后放到已排序列表的末尾y, 已此类推
+    /// 首先在未排序列中找到最小(大)的元素，存放在排序序列的起始位置; 然后再从剩余未排序的元素中找到最小(大)数，然后放到已排序列表的末尾, 已此类推
     public mutating func selectionSort(){
         let count = self.count
         guard count > 1 else { return }
@@ -34,7 +37,9 @@ extension Array where Element : Comparable {
                     minIndex = j
                 }
             }
-            (self[i], self[minIndex]) = (self[minIndex], self[i]) // tuple feature
+            if i != minIndex {
+                (self[i], self[minIndex]) = (self[minIndex], self[i]) // tuple feature
+            }
         }
     }
 }
