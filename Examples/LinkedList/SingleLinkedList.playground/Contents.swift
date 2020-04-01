@@ -84,22 +84,40 @@ class Solution {
         }
         return slow
     }
+    
+    /// check whether the list has cycle
+    func hasCycle(_ head: ListNode?) -> Bool {
+        var fast = head
+        var slow = head
+        while fast != nil && fast!.next != nil {
+            slow = slow!.next
+            fast = fast!.next!.next
+            if slow === fast {
+                return true
+            }
+        }
+        return false
+    }
 }
 let sol = Solution()
 // 1 -> 2 -> 3 -> 4 -> 5
 let node5 = ListNode(5)
 let node4 = ListNode(4, next: node5)
-let node3 = ListNode(3, next: node4)
-let node2 = ListNode(2, next: node3)
+var node3 = ListNode(3, next: node4)
+var node2 = ListNode(2, next: node3)
 let node1 = ListNode(1, next: node2)
 
-/// 测试
-let KthTailNode0 = Solution().FindKthToTail(head: node1, k: 0)
-let KthTailNode1 = Solution().FindKthToTail(head: node1, k: 2)
-let KthTailNode2 = Solution().FindKthToTail(head: node1, k: 10)
+node3.next = node2
 
-// 打印链表
-sol.printListNode(sol.reverseList(node1))
+/// Test
+//let KthTailNode0 = sol.FindKthToTail(head: node1, k: 0)
+//let KthTailNode1 = sol.FindKthToTail(head: node1, k: 2)
+//let KthTailNode2 = sol.FindKthToTail(head: node1, k: 10)
+
+// print the linked list
+//sol.printListNode(sol.reverseList(node1))
+
+sol.hasCycle(node1)
 
 
 

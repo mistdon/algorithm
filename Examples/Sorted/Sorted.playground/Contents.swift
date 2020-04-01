@@ -18,7 +18,6 @@ extension Array where Element : Comparable {
             for j in 0..<count - 1 - i {
                 if self[j] > self[j + 1] {
                     (self[j], self[j + 1]) = (self[j + 1], self[j]) // tuple feature
-                    print(self)
                 }
             }
         }
@@ -90,3 +89,27 @@ extension Array where Element : Comparable {
 arr.quickSort()
 
 print(arr)
+
+
+/// 临时变量法
+func swapTwoNum1(_ a: inout Int, _ b: inout Int) {
+    let temp : Int = a
+    a = b
+    b = temp
+    
+}
+/// 算法运算
+func swapTwoNum2(_ a: inout Int, _ b: inout Int) {
+    a = b - a
+    b = b - a // = b - (b - a) = a
+    a = b + a // = a + b - a = b
+}
+/// 位运算法
+func swapTwoNum3(_ a: inout Int, _ b: inout Int) {
+    a = a ^ b
+    b = a ^ b
+    a = a ^ b
+}
+var a = 2, b = 3
+swapTwoNum3(&a, &b)
+
